@@ -107,6 +107,11 @@ session_id = None
 local_object_list = []
 
 
+def form_target_object_params(id: int, type: str = 'transport') -> str:
+    return (f'TargetObject:'
+            f'{{"ObjectTypeId":"{object_type_id[type]}","ObjectId":"{id}"}}')
+
+
 def authorize():
     response = post(urls.login, headers=auth_header, json=login_params)
 
@@ -178,6 +183,7 @@ def get_avail_reports():
         print(
             f'Не удалось получить список отчётов:'
             f'Ошибка {resp.status_code} - {resp.reason}')
+        return resp
 
 
 def get_all_units():
@@ -188,16 +194,20 @@ def get_all_units():
         print(
             f'Не удалось получить список объектов:'
             f'Ошибка {resp.status_code} - {resp.reason}')
+        return resp
 
 
 def get_online_data(id: int):
-    resp = get(urls.get_online_data, headers=req_header, timeout=5)
+    resp = post(urls.get_online_data, headers=req_header,
+                json=form_target_object_params(id),
+                timeout=5)
     if resp.ok:
         return resp.json()
     else:
         print(
             f'Не удалось получить данные по объекту {id}'
             f'Ошибка {resp.status_code} - {resp.reason}')
+        return resp
 
 
 test_unit_id = 14095

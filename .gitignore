@@ -3,7 +3,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-\#*.txt\#
 
 # C extensions
 *.so
@@ -131,6 +130,7 @@ dmypy.json
 .pyre/
 
 
+\#*.*\#
 test.*
 /out/*
 /in/*
