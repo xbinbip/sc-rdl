@@ -1,0 +1,45 @@
+{
+    'OnlineDataCollection': {
+        'DataCollection': {
+            'SpicOnlineData': [
+                {
+                    'Address': 'Рефтинский',
+                    'ConnectionDateTime': datetime.datetime(2023, 12, 18, 4, 35, 43, 882000, tzinfo=<FixedOffset '+03:00'>),
+                    'DeviceId': {
+                        'Protocol': {
+                            'Value': 'Scout MT-850+'
+                        },
+                        'SerialId': '649400'
+                    },
+                    'IsNavigationValid': True,
+                    'LastMessageTime': datetime.datetime(2023, 12, 18, 4, 35, 39, tzinfo=<FixedOffset '+03:00'>),
+                    'Navigation': {
+                        'AltitudeMeters': 185.0,
+                        'Angle': 0,
+                        'HardwareValidation': None,
+                        'Location': {
+                            'Latitude': 57.0941566,
+                            'Longitude': 61.6721383
+                        },
+                        'NavigationSystemType': 'GpsGlonass',
+                        'SatellitesCount': 19,
+                        'Speed': 0.0
+                    },
+                    'NavigationTime': datetime.datetime(2023, 12, 18, 4, 35, 39, tzinfo=<FixedOffset '+03:00'>),
+                    'TotalMessages': 3
+                }
+            ]
+        },
+        'Targets': {
+            'int': [
+                104540
+            ]
+        }
+    },
+    'State': {
+        'ErrorCodes': None,
+        'Status': {
+            'Value': 'Ok'
+        }
+    }
+}
