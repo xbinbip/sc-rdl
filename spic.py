@@ -45,8 +45,8 @@ base_url2 = 'http://spic.scout365.ru:8081'
 base_url = 'http://login.scout-gps.ru'
 
 object_type_id = {'transport': "0F1E3A4A-88F5-4166-9BE8-76033DD85D08",
-                  'terminal': "0783BE26-6398-480C-A88F-871438A01C36",
-                  'teminal_profile': "54E3C5C5-7EFE-49B9-AE0E-F8C44D52FA36"}
+                'terminal': "0783BE26-6398-480C-A88F-871438A01C36",
+                'teminal_profile': "54E3C5C5-7EFE-49B9-AE0E-F8C44D52FA36"}
 
 url_list = {
     'login': '/spic/auth/rest/Login',

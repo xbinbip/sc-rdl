@@ -1,6 +1,14 @@
 from zeep import Client
 from zeep.transports import Transport
 from requests import Response, Session
+# фласк для визуализации, временно здесь
+
+from flask import Flask, render_template, request, redirect, url_for
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+from wtforms.widgets import TextArea
+
 # хелперы
 
 
@@ -54,21 +62,21 @@ def login() -> str:
     resp = login_client.service.Login(login_params)
     return resp["SessionId"]
 
+if __name__ == "__main__":
+    session_id = login()
+    session.headers = {"ScoutAuthorization": session_id}
+    transport = Transport(session=session)
 
-session_id = login()
-session.headers = {"ScoutAuthorization": session_id}
-transport = Transport(session=session)
+    units_client = Client(soapUnits, transport=transport)
+    # units_client.wsdl.dump()
+    online_data_client = Client(soapOnlineDataService, transport=transport)
+    a: Response = units_client.service.GetAllUnits()
+    b: Response = online_data_client.service.GetOnlineData()
 
-units_client = Client(soapUnits, transport=transport)
-# units_client.wsdl.dump()
-online_data_client = Client(soapOnlineDataService, transport=transport)
-a: Response = units_client.service.GetAllUnits()
-b: Response = online_data_client.service.GetOnlineData()
-
-c = online_data_client.service.Subscribe(request={"UnitIds": "104540"})
-c
-sid = c["SessionId"]
-d = online_data_client.service.GetOnlineData(onlineDataSessionId=sid)
-d
-print(d, file=open("output.txt", "a"))
-online_data_client.service.Unsubscribe(onlineDataSessionId=sid)
+    c = online_data_client.service.Subscribe(request={"UnitIds": "104540"})
+    c
+    sid = c["SessionId"]
+    d = online_data_client.service.GetOnlineData(onlineDataSessionId=sid)
+    d
+    print(d, file=open("output.txt", "a"))
+    online_data_client.service.Unsubscribe(onlineDataSessionId=sid)
