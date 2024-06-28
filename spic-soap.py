@@ -1,16 +1,12 @@
 from zeep import Client
 from zeep.transports import Transport
 from requests import Response, Session
-# фласк для визуализации, временно здесь
-
-from flask import Flask, render_template, request, redirect, url_for
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
-from wtforms.widgets import TextArea
 
 # хелперы
 
+def pprint_dt(dt):
+    print(dt.strftime("%d.%m.%Y %H:%M:%S"))
+    pass
 
 class dotdict(dict):
     """dot.notation access to dictionary attributes"""
@@ -24,6 +20,11 @@ def compare_car_number(car_number1: str, car_number2: str) -> bool:
     c1 = "".join(car_number1.split()).capitalize()
     c2 = "".join(car_number2.split()).capitalize()
     return c1 == c2
+
+spic_status = {
+    'logged_in': False,
+    'messages' : []
+}
 
 
 base_url2 = "http://spic.scout365.ru:8081"
@@ -60,10 +61,14 @@ login_client = Client(soapLogin)
 
 def login() -> str:
     resp = login_client.service.Login(login_params)
-    return resp["SessionId"]
+    if resp["SessionId"]:
+        spic_status['logged_in'] = True
+    return resp
 
-if __name__ == "__main__":
-    session_id = login()
+def main():
+    #TEST
+    login_response = login()
+    session_id = login_response["SessionId"]
     session.headers = {"ScoutAuthorization": session_id}
     transport = Transport(session=session)
 
@@ -71,7 +76,7 @@ if __name__ == "__main__":
     # units_client.wsdl.dump()
     online_data_client = Client(soapOnlineDataService, transport=transport)
     a: Response = units_client.service.GetAllUnits()
-    b: Response = online_data_client.service.GetOnlineData()
+    #b: Response = online_data_client.service.GetOnlineData()
 
     c = online_data_client.service.Subscribe(request={"UnitIds": "104540"})
     c
@@ -80,3 +85,8 @@ if __name__ == "__main__":
     d
     print(d, file=open("output.txt", "a"))
     online_data_client.service.Unsubscribe(onlineDataSessionId=sid)
+    print("Done")
+    pass
+
+if __name__ == "__main__":
+    main()
