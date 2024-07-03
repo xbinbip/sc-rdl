@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Items</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+    {% block content %}
+    <h1>Units</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Brand</th>
+                <th>Color</th>
+                <th>CompanyId</th>
+                <th>Description</th>
+                <th>GarageNumber</th>
+                <th>Model</th>
+                <th>Number</th>
+                <th>OwnerId</th>
+                <th>SerialNumber</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>VIN</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for unit in units %}
+            <tr>
+                <td>{{ unit.Brand }}</td>
+                <td>{{ unit.Color }}</td>
+                <td>{{ unit.CompanyId }}</td>
+                <td>{{ unit.Description }}</td>
+                <td>{{ unit.GarageNumber }}</td>
+                <td>{{ unit.Model }}</td>
+                <td>{{ unit.Name }}</td>
+                <td>{{ unit.OlsonId }}</td>
+                <td>{{ unit.Owner }}</td>
+                <td>{{ unit.Power }}</td>
+                <td>{{ unit.Registration }}</td>
+                <td>{{ unit.StateNumber }}</td>
+                <td>{{ unit.UnitId }}</td>
+                <td>{{ unit.UnitTypeId }}</td>
+                <td>{{ unit.VinNumber }}</td>
+                <td>{{ unit.Year }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination">
+        {% if units.has_prev %}
+            <a href="{{ url_for('units', page=units.prev_num) }}">Previous</a>
+        {% else %}
+            <span class="disabled">Previous</span>
+        {% endif %}
+        <span class="current">{{ units.page }}</span>
+        {% if units.has_next %}
+            <a href="{{ url_for('units', page=units.next_num) }}">Next</a>
+        {% else %}
+            <span class="disabled">Next</span>
+        {% endif %}
+    </div>
+{% endblock %}
+    </main>
+    <footer>
+        <!-- Footer content here -->
+    </footer>
+</body>
+</html>

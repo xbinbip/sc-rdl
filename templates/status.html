@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Authentication Status</title>
+</head>
+<body>
+    <h1>Authentication Status</h1>
+    {% if spic_status.logged_in %}
+        <p style="background-color:rgb(28, 255, 8)">Logged in: Yes</p>
+        <p>Session Info: {{ spic_status.session_info }}</p>
+    {% else %}
+        <p style="background-color:tomato">Logged in: No</p>
+    {% endif %}
+    
+    <p><a href="{{ url_for('index') }}">Back to Home</a></p>
+</body>
+</html>
