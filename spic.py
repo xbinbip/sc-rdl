@@ -95,8 +95,8 @@ req_header = {
 }
 
 login_params = {
-    "Login": "kgm@redlineekb.ru",
-    "Password": "5Amxqv",
+    "Login": "admin",
+    "Password": "123",
     "TimeZoneOlsonId": "Asia/Yekaterinburg",
     "CultureName": "ru-ru",
     "UiCultureName": "ru-ru"
